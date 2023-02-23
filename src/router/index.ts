@@ -12,14 +12,6 @@ const router = createRouter({
     }
   },
   routes: [
-    // {
-    //   path: "",
-    //   name: "login",
-    //   meta:{
-    //     keepAlive: false
-    //   },
-    //   component: () => import("@/views/RegisterLogin.vue"),
-    // },
     {
       path: "/",
       name: "",

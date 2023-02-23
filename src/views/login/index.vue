@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-	 <div class="title">
-        登录
+	 <div class="title" @click="test">
+        LOGIN IN
       </div>
       <div class="content">
         <a-form
@@ -16,7 +16,7 @@
         @finishFailed="onFinishFailed"
         >
         <a-form-item
-        label="账户名"
+        label="username"
         name="username"
         :rules="[{ required: true, message: 'Please input your username!' }]"
         >
@@ -24,7 +24,7 @@
         </a-form-item>
 
         <a-form-item
-        label="密码"
+        label="password"
         name="password"
         :rules="[{ required: true, message: 'Please input your password!' }]"
         >
@@ -35,7 +35,7 @@
           <a-button type="primary" html-type="submit">Submit</a-button>
           <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
         <div>
-          <router-link style="float: right" to="/register">注册</router-link>
+          <router-link style="float: right" to="/register">sign up</router-link>
         </div>
         </a-form-item>
       </a-form>
@@ -48,9 +48,13 @@
 import { login } from "@/service/LoginApi";
 import { message } from "ant-design-vue/es";
 import type { FormInstance } from 'ant-design-vue';
+import storage from '@/utils/useStorage'
 interface FormState {
   username: string;
   password: string;
+}
+const test = ()=>{
+   storage.set('isCookie',true)
  
 }
 const formState = reactive<FormState>({
@@ -74,7 +78,8 @@ const router = useRouter();
 const onFinish = () => {
 	login(formState).then((res: any) => {
 		if (res.code !== 0) return message.error(res.msg);
-		router.push({ name: "home" });
+    router.push({ name: "home" });
+     storage.set('isCookie',true)
 	})
 };
 const onFinishFailed = (errorInfo: any) => {

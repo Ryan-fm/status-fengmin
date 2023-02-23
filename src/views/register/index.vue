@@ -27,14 +27,12 @@
 			<a-form-item
 			label="密码"
 			name="password"
-			:rules="[{ required: true, message: 'Please input your password!' }]"
 			>
 			<a-input-password v-model:value="formState.password" />
 			</a-form-item>
 			<a-form-item
 			label="确认密码"
-			name="password"
-			:rules="[{ required: true, message: 'Please confirm your password!' }]"
+			name="retype"
 			>
 			<a-input-password v-model:value="formState.retype" />
 			</a-form-item>
@@ -87,8 +85,8 @@ let validatePass2 = async (_rule: Rule, value: string) => {
 };
 const rules: Record<string, Rule[]> = {
 	username: [{ required: true, message: 'Please input your username!' }],
-	pass: [{ required: true, validator: validatePass, trigger: 'change' }],
-	checkPass: [{ validator: validatePass2, trigger: 'change' }],
+	password: [{ required: true, validator: validatePass, trigger: 'change' }],
+	retype: [{ required: true,validator: validatePass2, trigger: 'change' }],
 };
 
 const router = useRouter();

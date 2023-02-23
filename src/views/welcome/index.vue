@@ -4,7 +4,7 @@
       <div class="header">
         <span class="title">欢迎</span>
       </div>
-      <a-button :loading="logging" style="margin-top: 24px" size="large" type="primary" @click="handleClick">登录</a-button>
+      <a-button style="margin-top: 24px" size="large" type="primary" @click="handleClick">登录</a-button>
     </div>
   </div>
 </template>
