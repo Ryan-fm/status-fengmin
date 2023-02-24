@@ -4,10 +4,12 @@ import { getWebsocket } from "@/service/HomeApi";
 import { logout } from "@/service/LoginApi";
 import * as echarts from "echarts";
 import {columns} from './dataUtil'
+import storage from '@/utils/useStorage'
 const hanledLogout = () => {
   logout().then(() => {
     ws.close();
     router.push({ name: "login" });
+    storage.remove('isLogin')
   });
 };
 let activeKey = ref('1')
@@ -24,6 +26,7 @@ const connet = async () => {
   websocketsUrl = resource.data.url;
   ws = new WebSocket(`wss://127.0.0.1:8081${websocketsUrl}`);
   ws.onmessage = (event: any) => {
+    // machine- 类
     if (JSON.parse(event.data).endpt.includes("machine-")) {
       machineData.value.unshift(JSON.parse(event.data));
       let temp = JSON.parse(event.data).params.filter(
@@ -33,11 +36,11 @@ const connet = async () => {
       option.series[0].data = diskAvailiable.slice(0, 10).reverse();
       myChart.setOption(option);
     } else {
+
       serverData.value.unshift(JSON.parse(event.data));
     }
   };
 };
-
 
 
 const diskFilter = computed(
@@ -134,6 +137,9 @@ onMounted(() => {
 
 <template>
   <div class="about">
+    <div class="loginOut-btn" >
+      <a-button style="margin-left: 10px" @click="hanledLogout" type="primary">Logout</a-button>
+    </div>
     <div>
      <a-tabs v-model:activeKey="activeKey">
         <a-tab-pane key="1" tab="machine">
@@ -196,5 +202,9 @@ onMounted(() => {
 .distCharts {
   flex: 1;
   min-height: 550px;
+}
+.loginOut-btn{
+  color:blue;
+  float:right;
 }
 </style>

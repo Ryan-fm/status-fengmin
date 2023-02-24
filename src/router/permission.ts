@@ -8,7 +8,7 @@ NProgress.configure({ showSpinner: false })
 router.beforeEach(async (to, _from, next) => {
   NProgress.start()
   // 判断该用户是否登录
-  if (storage.get('isCookie')) {
+  if (storage.get('isLogin')) {
     next()
     NProgress.done()
   } else {

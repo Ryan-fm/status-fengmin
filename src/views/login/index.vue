@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-	 <div class="title" @click="test">
+	 <div class="title" >
         LOGIN IN
       </div>
       <div class="content">
@@ -53,10 +53,7 @@ interface FormState {
   username: string;
   password: string;
 }
-const test = ()=>{
-   storage.set('isCookie',true)
- 
-}
+
 const formState = reactive<FormState>({
 	username: '',
 	password: '',
@@ -79,7 +76,7 @@ const onFinish = () => {
 	login(formState).then((res: any) => {
 		if (res.code !== 0) return message.error(res.msg);
     router.push({ name: "home" });
-     storage.set('isCookie',true)
+     storage.set('isLogin',true)
 	})
 };
 const onFinishFailed = (errorInfo: any) => {
